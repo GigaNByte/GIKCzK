@@ -18,10 +18,14 @@ public class App {
         System.out.println("====================");
         System.out.println("png height:");
         System.out.println(args[2]);
+        System.out.println("line drawing method:");
+        System.out.println(args[2]);
         System.out.println("====================");
-        Renderer mainRenderer = new Renderer(args[0],Integer.parseInt(args[1]),Integer.parseInt(args[2]));
+        Renderer mainRenderer = new Renderer(args[0],Integer.parseInt(args[1]),Integer.parseInt(args[2]),"NAIVE");
         mainRenderer.clear();
         mainRenderer.drawPoint( Integer.parseInt(args[1]), Integer.parseInt(args[2]));
+        mainRenderer.drawLine(0,0,100, 100, Renderer.LineAlgo.valueOf("Naive"));
+
         try {
             mainRenderer.save();
         } catch (IOException ex) {

@@ -18,7 +18,7 @@ public class Renderer {
     private String filename;
     private LineAlgo lineAlgo = LineAlgo.NAIVE;
 
-    public Renderer(String filename,Integer width,Integer height) {
+    public Renderer(String filename,Integer width,Integer height,String method) {
         h = 2*height;
         w = 2*width;
         render = new BufferedImage(2*width, 2*height, BufferedImage.TYPE_INT_ARGB);
@@ -39,14 +39,14 @@ public class Renderer {
 
     public void drawLineNaive(int x0, int y0, int x1, int y1) {
         // TODO: zaimplementuj
-
+        int white = 255 | (255 << 8) | (255 << 16) | (255 << 24);
         int dy = y1 - y0;
         int dx = x1 - x0;
         int m = dy/dx;
         int y = y0;
 
         for (int i = x0; i < x1; i++) {
-            drawPoint(i,y);
+            render.setRGB(i,y,white);
             y = y + m;
         }
 
