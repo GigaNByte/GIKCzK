@@ -24,7 +24,7 @@ public class App {
         Renderer mainRenderer = new Renderer(args[0],Integer.parseInt(args[1]),Integer.parseInt(args[2]),args[3]);
         mainRenderer.clear();
         mainRenderer.drawPoint( Integer.parseInt(args[1]), Integer.parseInt(args[2]));
-        mainRenderer.drawLine(0,0,100, 100, Renderer.LineAlgo.valueOf(args[3]));
+        mainRenderer.drawLine(0,0,100, 100,  Renderer.LineAlgo.valueOf(args[3]));
 
         try {
             mainRenderer.save();
