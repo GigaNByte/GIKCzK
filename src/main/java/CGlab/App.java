@@ -19,7 +19,7 @@ public class App {
         System.out.println("png height:");
         System.out.println(args[2]);
         System.out.println("====================");
-        Renderer mainRenderer = new Renderer(args[0]);
+        Renderer mainRenderer = new Renderer(args[0],Integer.parseInt(args[1]),Integer.parseInt(args[2]));
         mainRenderer.clear();
         mainRenderer.drawPoint( Integer.parseInt(args[1]), Integer.parseInt(args[2]));
         try {
