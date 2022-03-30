@@ -19,8 +19,8 @@ public class Renderer {
     private LineAlgo lineAlgo = LineAlgo.NAIVE;
 
     public Renderer(String filename,Integer width,Integer height,String method) {
-        h = 2*height;
-        w = 2*width;
+        h = height;
+        w = width;
         render = new BufferedImage(2*width, 2*height, BufferedImage.TYPE_INT_ARGB);
         this.filename = filename;
     }
@@ -57,7 +57,23 @@ public class Renderer {
     }
 
     public void drawLineBresenham(int x0, int y0, int x1, int y1) {
-        // TODO: zaimplementuj
+        int white = 255 | (255 << 8) | (255 << 16) | (255 << 24);
+
+        int dx = x1-x0;
+        int dy = y1-y0;
+        float derr = Math.abs(dy/(float)(dx));
+        float err = 0;
+
+        int y = y0;
+
+        for (int x=x0; x<=x1; x++) {
+            render.setRGB(x, y, white);
+            err += derr;
+            if (err > 0.5) {
+                y += (y1 > y0 ? 1 : -1);
+                err -= 1.;
+            }
+        } // Oktanty:
     }
 
     public void drawLineBresenhamInt(int x0, int y0, int x1, int y1) {

@@ -19,18 +19,32 @@ public class App {
         System.out.println("png height:");
         System.out.println(args[2]);
         System.out.println("line drawing method:");
-        System.out.println(args[2]);
+        System.out.println(args[3]);
         System.out.println("====================");
         Renderer mainRenderer = new Renderer(args[0],Integer.parseInt(args[1]),Integer.parseInt(args[2]),args[3]);
         mainRenderer.clear();
         mainRenderer.drawPoint( Integer.parseInt(args[1]), Integer.parseInt(args[2]));
-        mainRenderer.drawLine(0,0,100, 100,  Renderer.LineAlgo.valueOf(args[3]));
+        mainRenderer.clear();
+        mainRenderer.drawLine(50,50,100, 50 +5,  Renderer.LineAlgo.valueOf(args[3])); //octet: 0 Work
+        mainRenderer.drawLine(50,50,100, 0 +5,  Renderer.LineAlgo.valueOf(args[3]));//octet: 1 Work
+        mainRenderer.drawLine(50,50,50, 0+5,  Renderer.LineAlgo.valueOf(args[3]));//octet: 2 Doesnt work
+
+        mainRenderer.drawLine(50,50,0, 0+5,  Renderer.LineAlgo.valueOf(args[3]));//octet: 3 Doesnt Work
+        mainRenderer.drawLine(50,50,0, 50+5,  Renderer.LineAlgo.valueOf(args[3]));//octet: 4 Doesnt Work
+
+        mainRenderer.drawLine(50,50,0, 100 -5,  Renderer.LineAlgo.valueOf(args[3]));//octet: 5 Doesnt Work
+        mainRenderer.drawLine(50,50,50, 100 -5,  Renderer.LineAlgo.valueOf(args[3]));//octet: 6 Doesnt Work
+        mainRenderer.drawLine(50,50,100, 100 -5,  Renderer.LineAlgo.valueOf(args[3]));//octet: 7  Work
+
+
+
 
         try {
             mainRenderer.save();
         } catch (IOException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }
 
     public String getVersion() {
