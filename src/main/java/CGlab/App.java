@@ -21,10 +21,10 @@ public class App {
         System.out.println("line drawing method:");
         System.out.println(args[2]);
         System.out.println("====================");
-        Renderer mainRenderer = new Renderer(args[0],Integer.parseInt(args[1]),Integer.parseInt(args[2]),"NAIVE");
+        Renderer mainRenderer = new Renderer(args[0],Integer.parseInt(args[1]),Integer.parseInt(args[2]),args[3]);
         mainRenderer.clear();
         mainRenderer.drawPoint( Integer.parseInt(args[1]), Integer.parseInt(args[2]));
-        mainRenderer.drawLine(0,0,100, 100, Renderer.LineAlgo.valueOf("Naive"));
+        mainRenderer.drawLine(0,0,100, 100, Renderer.LineAlgo.valueOf(args[3]));
 
         try {
             mainRenderer.save();
