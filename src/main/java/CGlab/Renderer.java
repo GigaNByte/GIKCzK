@@ -68,34 +68,35 @@ public class Renderer {
         for (int x=x0; x<=x1; x++) {
             render.setRGB(x, y, white);
             err += derr;
-            if ((err > 0.5) {
+            if (err > 0.5) {
                 y += (y1 > y0 ? 1 : -1);
                 err -= 1.;
             }
         } // Oktanty ktore dzialają: 0,1,7
     }
 
-   private plotLineLow(x0, y0, x1, y1){
-    int dx = x1 - x0;
-    int dy = y1 - y0;
-    int yi = 1;
-    if (dy < 0){
-        yi = -1;
-        dy = -dy;
-    }
-    int D = (2 * dy) - dx;
-    int y = y0;
+   private void  plotLineLow(int x0, int y0, int x1, int y1) {
+       int dx = x1 - x0;
+       int dy = y1 - y0;
+       int yi = 1;
+       if (dy < 0) {
+           yi = -1;
+           dy = -dy;
+       }
+       int D = (2 * dy) - dx;
+       int y = y0;
 
-    for (x=x0; x<x1;x++){ 
-        drawPoint( x, y);
-        if (D > 0){
-            y = y + yi;
-            D = D + (2 * (dy - dx));
-        else
-            D = D + 2*dy;
-        }
+       for (int x = x0; x < x1; x++) {
+           drawPoint(x, y);
+           if (D > 0) {
+               y = y + yi;
+               D = D + (2 * (dy - dx));
+           }else{
+               D = D + 2 * dy;
+           }
+       }
    }
-    private plotLineHigh(int x0, int y0,int x1, int y1){
+    private void plotLineHigh(int x0, int y0,int x1, int y1){
     int dx = x1 - x0;
    int  dy = y1 - y0;
    int xi = 1;
@@ -106,7 +107,7 @@ public class Renderer {
     int D = (2 * dx) - dy;
     int x = x0;
         
-        for (y = y0 ;y< y1;y++){
+        for (int y = y0 ;y< y1;y++){
             drawPoint( x,  y);
             if (D > 0){
                 x = x + xi;
@@ -119,7 +120,7 @@ public class Renderer {
     }
 
     public void drawLineBresenhamInt(int x0, int y0, int x1, int y1) {
-        if (Math.abs(y1 - y0) < Math.abs(x1 - x0) {
+        if (Math.abs(y1 - y0) < Math.abs(x1 - x0)) {
             if (x0 > x1){
                 plotLineLow(x1, y1, x0, y0);
             }
