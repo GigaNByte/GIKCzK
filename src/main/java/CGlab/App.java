@@ -23,8 +23,12 @@ public class App {
         System.out.println("====================");
         Renderer mainRenderer = new Renderer(args[0],Integer.parseInt(args[1]),Integer.parseInt(args[2]),args[3]);
         mainRenderer.clear();
+        /*
+        lab 1,2
+        mainRenderer.clear();
         mainRenderer.drawPoint( Integer.parseInt(args[1]), Integer.parseInt(args[2]));
         mainRenderer.clear();
+
         mainRenderer.drawLine(50,50,100, 50 +5,  Renderer.LineAlgo.valueOf(args[3])); //octet: 0 Work
         mainRenderer.drawLine(50,50,100, 0 +5,  Renderer.LineAlgo.valueOf(args[3]));//octet: 1 Work
         mainRenderer.drawLine(50,50,50, 0+5,  Renderer.LineAlgo.valueOf(args[3]));//octet: 2 Doesnt work
@@ -35,9 +39,9 @@ public class App {
         mainRenderer.drawLine(50,50,0, 100 -5,  Renderer.LineAlgo.valueOf(args[3]));//octet: 5 Doesnt Work
         mainRenderer.drawLine(50,50,50, 100 -5,  Renderer.LineAlgo.valueOf(args[3]));//octet: 6 Doesnt Work
         mainRenderer.drawLine(50,50,100, 100 -5,  Renderer.LineAlgo.valueOf(args[3]));//octet: 7  Work
+        */
 
-
-
+        mainRenderer.drawTriangle(new Vec2f(10,10),new Vec2f(10,30), new Vec2f(40,10));
 
         try {
             mainRenderer.save();
