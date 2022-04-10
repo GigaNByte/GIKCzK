@@ -41,7 +41,7 @@ public class App {
         mainRenderer.drawLine(50,50,100, 100 -5,  Renderer.LineAlgo.valueOf(args[3]));//octet: 7  Work
         */
 
-        mainRenderer.drawTriangle(new Vec2f(10,10),new Vec2f(10,30), new Vec2f(40,10));
+        mainRenderer.drawTriangle(new Vec2f(10,10),new Vec2f(10,30), new Vec2f(40,10),new GigaColor(255,0,0));
 
         try {
             mainRenderer.save();

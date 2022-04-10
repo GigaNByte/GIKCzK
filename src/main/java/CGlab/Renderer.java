@@ -38,13 +38,12 @@ public class Renderer {
         return barycentric;
     }
 
-    public void drawTriangle(Vec2f A, Vec2f B, Vec2f C) {
-        int white = 255 | (255 << 8) | (255 << 16) | (255 << 24);
+    public void drawTriangle(Vec2f A, Vec2f B, Vec2f C, GigaColor color) {
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
                 Vec2f P = new Vec2f((float)i, (float)j);
                 if ( (barycentric(A, B, C, P).x > 0 && barycentric(A, B, C, P).x < 1 && barycentric(A, B, C, P).y < 1 && barycentric(A, B, C, P).y > 0   && barycentric(A, B, C, P).z > 0 && barycentric(A, B, C, P).z < 1)) {
-                    render.setRGB(i, j, white);
+                    drawPoint(i, j, color);
                 }
             }
         }
@@ -57,9 +56,8 @@ public class Renderer {
         return new Vec3f(x, y, z);
     }
 
-    public void drawPoint(int x, int y) {
-        int white = 255 | (255 << 8) | (255 << 16) | (255 << 24);
-        render.setRGB(x, y, white);
+    public void drawPoint(int x, int y,GigaColor color) {
+        render.setRGB(x, y, (255 << 24) + (color.x << 16) + (color.y << 8) + color.z);
     }
 
     public void drawLine(int x0, int y0, int x1, int y1, LineAlgo lineAlgo) {
@@ -120,7 +118,7 @@ public class Renderer {
        int y = y0;
 
        for (int x = x0; x < x1; x++) {
-           drawPoint(x, y);
+           drawPoint(x, y,new GigaColor(255,255,0));
            if (D > 0) {
                y = y + yi;
                D = D + (2 * (dy - dx));
@@ -141,7 +139,7 @@ public class Renderer {
     int x = x0;
         
         for (int y = y0 ;y< y1;y++){
-            drawPoint( x,  y);
+            drawPoint( x,  y,new GigaColor(0,0,0));
             if (D > 0){
                 x = x + xi;
                 D = D + (2 * (dx - dy));
