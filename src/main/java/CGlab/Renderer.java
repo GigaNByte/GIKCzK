@@ -18,7 +18,7 @@ public class Renderer {
     public int w = 200;
     private String filename;
     private LineAlgo lineAlgo = LineAlgo.NAIVE;
-
+    private float [][] zBuffer;
     public int getWidth() {
         return w;
     }
@@ -28,6 +28,7 @@ public class Renderer {
     public Renderer(String filename, Integer width, Integer height, String method) {
         h = height;
         w = width;
+        zBuffer  = new float[h][w];
         render = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         this.filename = filename;
     }
@@ -42,7 +43,16 @@ public class Renderer {
 
         return barycentric;
     }
+    public Vec3f barycentric(Vec3i A, Vec3i B, Vec3i C, Vec2i P) {
+        Vec3f v1 = new Vec3f((B.x - A.x), (C.x - A.x), (A.x - P.x));
+        Vec3f v2 = new Vec3f((B.y - A.y), (C.y - A.y), (A.y - P.y));
+        Vec3f cross = crossProduct(v1, v2);
+        Vec2f uv = new Vec2f(cross.x / cross.z, cross.y / cross.z);
 
+        Vec3f barycentric = new Vec3f(uv.x, uv.y, 1 - uv.x - uv.y);
+
+        return barycentric;
+    }
     public Vec3f barycentric(Vec2i A, Vec2i B, Vec2i C, Vec2i P) {
         Vec3f v1 = new Vec3f((B.x - A.x), (C.x - A.x), (A.x - P.x));
         Vec3f v2 = new Vec3f((B.y - A.y), (C.y - A.y), (A.y - P.y));
@@ -70,7 +80,33 @@ public class Renderer {
             }
         }
     }
+    public void drawTriangle(Vec3i A, Vec3i B, Vec3i C, GigaColor color) {
+        Integer[] xs = {A.x, B.x, C.x};
+        Integer[] ys = {A.y, B.y, C.y};
+        int minx = Collections.min(Arrays.asList(xs));
+        int maxx =  Collections.max(Arrays.asList(xs));
+        int miny = Collections.min(Arrays.asList(ys));
+        int maxy =  Collections.max(Arrays.asList(ys));
 
+        for (int i = minx; i <= maxx; i++) {
+            for (int j = miny; j <= maxy; j++) {
+                Vec2i P = new Vec2i(i,j);
+
+                float  z =  A.z * (1 - barycentric(A, B, C, P).z) + B.z * barycentric(A, B, C, P).z ;
+                System.out.println(A.z + " "  + (1 - barycentric(A, B, C, P).z));
+                //policz wspołrzędną z dla punktu jako interpolację
+                //współrzędnych z wierzchołków ABC z wspórzędnymi barycentrycznymi
+
+                if ((barycentric(A, B, C, P).x > 0 && barycentric(A, B, C, P).x < 1 && barycentric(A, B, C, P).y < 1 && barycentric(A, B, C, P).y > 0 && barycentric(A, B, C, P).z > 0 && barycentric(A, B, C, P).z < 1)) {
+                    if (zBuffer[i][j] <= z){
+                        drawPoint(i, j, color);
+                        zBuffer[i][j] = z;
+                    }
+
+                }
+            }
+        }
+    }
     public void drawTriangle(Vec2f A, Vec2f B, Vec2f C, GigaColor color) {
         Float[] xs = {A.x, B.x, C.x};
         Float[] ys = {A.y, B.y, C.y};
@@ -97,12 +133,6 @@ public class Renderer {
     }
 
 
-    private Vec3i crossProduct(Vec3i w1, Vec3i w2) {
-        Integer x = w1.y * w2.z - w1.z * w2.y;
-        Integer y = w1.z * w2.x - w1.x * w2.z;
-        Integer z = w1.x * w2.y - w1.y * w2.x;
-        return new Vec3i(x, y, z);
-    }
     public void drawPoint(int x, int y, GigaColor color) {
         render.setRGB(x, y, (255 << 24) + (color.x << 16) + (color.y << 8) + color.z);
     }

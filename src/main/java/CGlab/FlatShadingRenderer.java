@@ -1,6 +1,5 @@
 package CGlab;
 
-import static java.lang.Math.cos;
 import static java.lang.Math.sqrt;
 
 public class FlatShadingRenderer extends RandomColorRenderer{
@@ -27,11 +26,12 @@ public class FlatShadingRenderer extends RandomColorRenderer{
 
         for (Vec3i face : model.getFaceList()) {
             Vec3f[] screen_coords3 = new Vec3f[3];
-            Vec2i[] screen_coords = new Vec2i[3];
+            Vec3i[] screen_coords = new Vec3i[3];
             for (int j=0; j<3; j++) {
                 Vec3f world_coord = model.getVertex(face.get(j));
                 screen_coords3[j] = world_coord;
-                screen_coords[j] = new Vec2i((int)((world_coord.x() + 1.0) * this.getWidth() / 2.0), (int)((world_coord.y() + 1.0) * this.getHeight() / 2.0) - this.getHeight() / 2);
+
+                screen_coords[j] = new Vec3i((int)((world_coord.x() + 1.0) * this.getWidth() / 2.0), (int)((world_coord.y() + 1.0) * this.getHeight() / 2.0) - this.getHeight() / 2, (int)((world_coord.z() + 1.0) * this.getHeight() / 2.0) - this.getHeight() / 2 );
             }
 
             Float cosBetweenVectors = cosBetweenVectors( new Vec3f( 50,50,50), Normal( screen_coords3[0],screen_coords3[1],screen_coords3[2])) *128 + 128;
