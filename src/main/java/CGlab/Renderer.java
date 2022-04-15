@@ -89,12 +89,14 @@ public class Renderer {
         }
     }
 
-    private Vec3f crossProduct(Vec3f w1, Vec3f w2) {
+    public Vec3f crossProduct(Vec3f w1, Vec3f w2) {
         float x = w1.y * w2.z - w1.z * w2.y;
         float y = w1.z * w2.x - w1.x * w2.z;
         float z = w1.x * w2.y - w1.y * w2.x;
         return new Vec3f(x, y, z);
     }
+
+
     private Vec3i crossProduct(Vec3i w1, Vec3i w2) {
         Integer x = w1.y * w2.z - w1.z * w2.y;
         Integer y = w1.z * w2.x - w1.x * w2.z;

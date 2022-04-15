@@ -48,7 +48,7 @@ public class App {
 
 */
 
-        RandomColorRenderer mainRenderer = new RandomColorRenderer(args[0],Integer.parseInt(args[1]),Integer.parseInt(args[2]),args[3]);
+        FlatShadingRenderer mainRenderer = new FlatShadingRenderer(args[0],Integer.parseInt(args[1]),Integer.parseInt(args[2]),args[3]);
         Model myszojelen = new Model();
         myszojelen.readOBJ("deer.obj");
         mainRenderer.clear();
