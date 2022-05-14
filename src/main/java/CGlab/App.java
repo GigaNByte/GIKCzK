@@ -51,8 +51,12 @@ public class App {
         FlatShadingRenderer mainRenderer = new FlatShadingRenderer(args[0],Integer.parseInt(args[1]),Integer.parseInt(args[2]),args[3]);
         Model myszojelen = new Model();
         myszojelen.readOBJ("deer.obj");
+
         mainRenderer.clear();
         mainRenderer.render(myszojelen);
+        myszojelen.translate(new Vec3f(0.3f,0.3f,0.3f));
+        mainRenderer.render(myszojelen);
+
 
 
         try {
